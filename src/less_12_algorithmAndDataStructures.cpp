@@ -305,7 +305,6 @@ bool searchTreeNode(TreeNode *t,int key)
   return false;
 }
 
-
 //----------------------------------------------------------------------------
 void task_1(void)
 {
