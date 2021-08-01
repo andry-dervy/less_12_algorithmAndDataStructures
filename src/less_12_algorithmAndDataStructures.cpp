@@ -356,24 +356,27 @@ void task_1(void)
 
   cout << "Created " << NUMBER_TREES << " trees with " <<
       NUMBER_NODES << " nodes." << endl;
+
+  TreeNode *trees[NUMBER_TREES] = {nullptr};
+
   int cnt = 0;
   for(int i = 0; i < NUMBER_TREES; i++)
   {
     int n = NUMBER_NODES;
     while(n-- != 0)
     {
-      tree = treeInsert(tree,rand());
+      trees[i] = treeInsert(trees[i],rand()%100);
     }
-    if(isBalanced(tree) != NO_BALANCED)
+    if(isBalanced(trees[i]) != NO_BALANCED)
     {
       cnt++;
     }
-
-    freeTree(tree);
-    tree = nullptr;
   }
 
   cout << "Number of balanced trees, %: " << cnt*100/NUMBER_TREES << endl;
+
+  for(int i = 0; i < NUMBER_TREES; i++)
+    freeTree(trees[i]);
 }
 //----------------------------------------------------------------------------
 void task_2(void)
