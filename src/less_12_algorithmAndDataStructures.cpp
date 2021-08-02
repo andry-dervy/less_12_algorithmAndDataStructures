@@ -6,12 +6,23 @@
 //============================================================================
 
 #include <iostream>
+#include <random>
+#include <stdlib.h>
+#include <cmath>
+#include <chrono>
+//----------------------------------------------------------------------------
 using namespace std;
 //----------------------------------------------------------------------------
 //#define NDEBUG
 #include <cassert>
 //----------------------------------------------------------------------------
-
+int getRandomNum(int min, int max)
+{
+  const static auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+  static std::mt19937_64 generator(seed);
+  std::uniform_int_distribution<int> dis(min, max);
+  return dis(generator);
+}
 //----------------------------------------------------------------------------
 /*
 1. Написать функцию проверяющую
@@ -323,19 +334,7 @@ void task_1(void)
 
   printTree(tree);
   cout << endl;
-/*
-  deleteTreeNode(tree,30);
-  printTree(tree);
-  cout << endl;
 
-  deleteTreeNode(tree,60);
-  printTree(tree);
-  cout << endl;
-
-  deleteTreeNode(tree,70);
-  printTree(tree);
-  cout << endl;
-//*/
   preOrderTravers(tree);
   cout << endl;
   inOrderTravers(tree);
@@ -359,13 +358,17 @@ void task_1(void)
 
   TreeNode *trees[NUMBER_TREES] = {nullptr};
 
+  const int MIN = 0;
+  const int MAX = 100;
+
   int cnt = 0;
   for(int i = 0; i < NUMBER_TREES; i++)
   {
     int n = NUMBER_NODES;
+    trees[i] = treeInsert(trees[i],(MAX-MIN)/2);
     while(n-- != 0)
     {
-      trees[i] = treeInsert(trees[i],rand()%100);
+      treeInsert(trees[i],getRandomNum(MIN,MAX));
     }
     if(isBalanced(trees[i]) != NO_BALANCED)
     {
@@ -415,7 +418,7 @@ int main() {
   //*/
 //----------------------------------------------------------------------------
   // Task 2
-  //*
+  /*
   task_2();
   //*/
 //----------------------------------------------------------------------------
